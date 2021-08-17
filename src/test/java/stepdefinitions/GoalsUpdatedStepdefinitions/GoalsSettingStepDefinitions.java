@@ -1,5 +1,7 @@
 package stepdefinitions.GoalsUpdatedStepdefinitions;
 
+import common.DBHelper;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Steps;
 import steps.GoalsUpdatedSteps.GoalsUpdatedSteps;
@@ -8,6 +10,8 @@ public class GoalsSettingStepDefinitions {
 
     @Steps
     GoalsUpdatedSteps goalsUpdatedSteps;
+
+    DBHelper dbHelper;
 
     @Then("Set first quarter on Start Date field")
     public void setFirstQuarterOnStartDateField() {
@@ -57,5 +61,11 @@ public class GoalsSettingStepDefinitions {
     @Then("Verify Cycle Name is Added in the list")
     public void verifyCycleNameIsAddedInTheList() {
         goalsUpdatedSteps.verifyCycleNamePresentInTheList();
+    }
+
+    @Given("Clear goal database")
+    public void clearWellnessDatabase() {
+        dbHelper = new DBHelper();
+        dbHelper.truncateGoalTBL();
     }
 }
