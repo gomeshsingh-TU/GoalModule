@@ -3,6 +3,7 @@ Feature: Manage Goal Setting
 
 @QA_BCT_GS-MGS_01
 Scenario: To verify that user cannot create a goal if one or more required fields is/are not yet populated
+Given Clear goal database
 Given Boost Login page
 When A Supervisor logs in
 Then Click on Initials on right upper corner

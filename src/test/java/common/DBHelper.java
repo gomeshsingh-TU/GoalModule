@@ -340,12 +340,12 @@ public class DBHelper {
     }
 
     public void truncateGoalTBL() {
-        String Coach = "TRUNCATE TABLE [dbo].[Comment] \n" +
-                "TRUNCATE TABLE [dbo].[GoalItem] \n" +
-                "TRUNCATE TABLE [dbo].[Participant] \n" +
-                "TRUNCATE TABLE [dbo].[GoalStatus] \n" +
-                "TRUNCATE TABLE [dbo].[Goal] \n" +
-                "TRUNCATE TABLE [dbo].[Cycle]";
+        String Coach = "DELETE [dbo].[Comment] \n" +
+                "DELETE [dbo].[GoalItem] \n" +
+                "DELETE [dbo].[Participant] \n" +
+                "DELETE [dbo].[GoalStatus] \n" +
+                "DELETE [dbo].[Goal] \n" +
+                "DELETE [dbo].[Cycle]";
         try {
             fireACommitQuery(Coach);
         }catch (Exception e) {
