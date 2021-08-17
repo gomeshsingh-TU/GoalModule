@@ -1,0 +1,5 @@
+EmpNo,UserName,Password,LastName,FirstName,Position
+800$t;3014611,EK,Password,LastName,FirstName,Supervisor
+800$t;3058324,Aldrin,Password,LastName,FirstName,DirectReport
+800$t;3014596,Jenie,Password,LastName,FirstName,3rdParty
+800$t;3051926,Terry,Password,LastName,FirstName,Boss
