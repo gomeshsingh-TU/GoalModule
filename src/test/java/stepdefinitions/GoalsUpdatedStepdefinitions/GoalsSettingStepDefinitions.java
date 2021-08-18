@@ -7,17 +7,21 @@ import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Steps;
 import stepdefinitions.GoalsStepDefinitions;
 import stepdefinitions.LoginStepDefinations;
+import steps.GoalsSteps;
 import steps.GoalsUpdatedSteps.GoalsUpdatedSteps;
+import steps.LoginSteps;
 
 public class GoalsSettingStepDefinitions {
 
     @Steps
     GoalsUpdatedSteps goalsUpdatedSteps;
+    @Steps
+    LoginSteps loginSteps;
+    @Steps
+    GoalsSteps goalsSteps;
 
     DBHelper dbHelper;
 
-    LoginStepDefinations loginStepDefinations;
-    GoalsStepDefinitions goalsStepDefinitions;
 
     @Then("Set first quarter on Start Date field")
     public void setFirstQuarterOnStartDateField() {
@@ -94,13 +98,13 @@ public class GoalsSettingStepDefinitions {
 
     public void module1tc2(){
         clearWellnessDatabase();
-        loginStepDefinations.userAccessTheBoostLoginPage();
-        loginStepDefinations.aSupervisorLogsIn();
-        goalsStepDefinitions.clickOnInitialsOnRightUpperCorner();
-        goalsStepDefinitions.clickOnManageGoals();
-        goalsStepDefinitions.clickAddCycle();
+        loginSteps.openBoostLoginPage();
+        loginSteps.UserLogsIn("Supervisor");
+        goalsSteps.clickOnInitials();
+        goalsSteps.clickOnManageGoalsOption();
+        goalsSteps.clickOnAddCycleOption();
         inputDataInCycleForTheFirstQuarter();
-        goalsStepDefinitions.clickOnAddButtonForCycle();
+        goalsSteps.clickOnAddCycleButton();
         verifyCycleNameIsAddedInTheList();
     }
 }

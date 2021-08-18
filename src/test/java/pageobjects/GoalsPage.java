@@ -410,7 +410,7 @@ public class GoalsPage extends PageObject {
 
         waitForCondition().until(ExpectedConditions.visibilityOf(manageGoalsCycleDropDown));
         Thread.sleep(500);
-        String cycleName = manageGoalsCycleDropDown.getSelectOptions().get(3).trim();
+        String cycleName = manageGoalsCycleDropDown.getSelectOptions().get(1).trim();
         manageGoalsCycleDropDown.selectByVisibleText(cycleName);
         Thread.sleep(500);
     }
