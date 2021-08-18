@@ -1,9 +1,12 @@
 package stepdefinitions.GoalsUpdatedStepdefinitions;
 
 import common.DBHelper;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Steps;
+import stepdefinitions.GoalsStepDefinitions;
+import stepdefinitions.LoginStepDefinations;
 import steps.GoalsUpdatedSteps.GoalsUpdatedSteps;
 
 public class GoalsSettingStepDefinitions {
@@ -12,6 +15,9 @@ public class GoalsSettingStepDefinitions {
     GoalsUpdatedSteps goalsUpdatedSteps;
 
     DBHelper dbHelper;
+
+    LoginStepDefinations loginStepDefinations;
+    GoalsStepDefinitions goalsStepDefinitions;
 
     @Then("Set first quarter on Start Date field")
     public void setFirstQuarterOnStartDateField() {
@@ -67,5 +73,34 @@ public class GoalsSettingStepDefinitions {
     public void clearWellnessDatabase() {
         dbHelper = new DBHelper();
         dbHelper.truncateGoalTBL();
+    }
+
+    @Given("Create prereq data for {string}")
+    public void createPrereqDataFor(String testCaseNumber) {
+        if("QA_BCT_GS-CG_02".equalsIgnoreCase(testCaseNumber)){
+            module1tc2();
+        }
+    }
+
+    @And("Input data in cycle for the first quarter")
+    public void inputDataInCycleForTheFirstQuarter() {
+        setNameOfQuarterAsFirstQuarter();
+        setFirstQuarterOnStartDateField();
+        setFirstQuarterOnEndDateField();
+        setFirstQuarterStatusChangeCutoff();
+        setFirstQuarterEditCutoffDate();
+        selectOnIsListedField("Yes");
+    }
+
+    public void module1tc2(){
+        clearWellnessDatabase();
+        loginStepDefinations.userAccessTheBoostLoginPage();
+        loginStepDefinations.aSupervisorLogsIn();
+        goalsStepDefinitions.clickOnInitialsOnRightUpperCorner();
+        goalsStepDefinitions.clickOnManageGoals();
+        goalsStepDefinitions.clickAddCycle();
+        inputDataInCycleForTheFirstQuarter();
+        goalsStepDefinitions.clickOnAddButtonForCycle();
+        verifyCycleNameIsAddedInTheList();
     }
 }
