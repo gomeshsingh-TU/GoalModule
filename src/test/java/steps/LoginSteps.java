@@ -5,14 +5,20 @@ import common.CredentialsCSVReader;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
+import org.fluentlenium.core.annotation.Page;
+import pageobjects.GoalsPage;
 import pageobjects.LoginPage;
 import testdataobjects.EmployeeProfile;
 
 import java.util.HashMap;
 
 public class LoginSteps {
-    @Steps
+    @Page
     LoginPage loginPage;
+
+    @Page
+    GoalsPage goalsPage;
+
     EmployeeProfile omuser;
     HashMap<String, EmployeeProfile> employeeList;
 
@@ -37,5 +43,10 @@ public class LoginSteps {
         boostAPIHelper.setEmpNumber(omuser.getUsername());
         loginPage.loginWithEmployeeNumber(omuser.getEmpno());
         return omuser;
+    }
+
+    public void logout() {
+        goalsPage.clickInitialsIconUpperRight();
+        loginPage.clickLogout();
     }
 }

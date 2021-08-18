@@ -106,5 +106,6 @@ public class GoalsSettingStepDefinitions {
         inputDataInCycleForTheFirstQuarter();
         goalsSteps.clickOnAddCycleButton();
         verifyCycleNameIsAddedInTheList();
+        loginSteps.logout();
     }
 }

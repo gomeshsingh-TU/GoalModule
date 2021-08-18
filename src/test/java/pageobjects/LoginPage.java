@@ -3,6 +3,7 @@ package pageobjects;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 
 public class LoginPage extends PageObject {
 
@@ -24,6 +25,10 @@ public class LoginPage extends PageObject {
     public void loginWithEmployeeNumber(String employeeNumber) {
         employeeNumberInputTextBox.sendKeys(employeeNumber);
         testLoginButton.click();
+    }
+
+    public void clickLogout(){
+        find(By.xpath("//div[contains(text(),'Logout')]")).click();
     }
 
 }
