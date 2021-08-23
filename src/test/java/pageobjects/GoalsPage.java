@@ -1,16 +1,23 @@
 package pageobjects;
 
+import common.CredentialsCSVReader;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import javax.swing.*;
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 public class GoalsPage extends PageObject {
 
@@ -23,6 +30,15 @@ public class GoalsPage extends PageObject {
     String goalDetailsStatus;
     String goalListStatus;
     String editGoalDescText;
+    String cycleName;
+
+    public String getCycleName() {
+        return cycleName;
+    }
+
+    public void setCycleName(String cycleName) {
+        this.cycleName = cycleName;
+    }
 
     @FindBy(css = "svg.name-icon")
     private WebElementFacade initialsIconUpperRight;
@@ -410,8 +426,10 @@ public class GoalsPage extends PageObject {
 
         waitForCondition().until(ExpectedConditions.visibilityOf(manageGoalsCycleDropDown));
         Thread.sleep(500);
-        String cycleName = manageGoalsCycleDropDown.getSelectOptions().get(1).trim();
+        int index = (int) (1 + (Math.random() * (manageGoalsCycleDropDown.getSelectOptions().size() - 1)));
+        cycleName = manageGoalsCycleDropDown.getSelectOptions().get(index).trim();
         manageGoalsCycleDropDown.selectByVisibleText(cycleName);
+        cycleName = manageGoalsCycleDropDown.getSelectedVisibleTextValue();
         Thread.sleep(500);
     }
 
@@ -795,5 +813,60 @@ public class GoalsPage extends PageObject {
         editGoalsPageEditButton.click();
         waitForCondition().until(ExpectedConditions.visibilityOf(editIsBeyondCutoffErrorEditButton));
         Assert.assertEquals("Compare Edit Error Message", "Edit is beyond cutoff.", editIsBeyondCutoffErrorEditButton.getText());
+    }
+
+    public void verifyNameOfTheGoalFormShouldBeYourName() {
+        String name = find(By.id("name")).getText();
+        int noOfName = findAll(By.xpath("//div[contains(text(),'"+name+"')]")).size();
+        Assert.assertEquals("Checking for create goal form",2,noOfName);
+    }
+
+    public void verifyCycleNameShouldBeTheOneSelected() {
+        Assert.assertTrue("Checking for cycle name in form",find(By.xpath("//div[contains(text(),'"+cycleName+"')]")).isDisplayed());
+    }
+
+    public boolean verifyDateCoverageShouldBeTheStartAndEndOfCycle(String cycleStartAndEndDate) {
+        return find(By.xpath("//div[contains(text(),'"+cycleStartAndEndDate+"')]")).isDisplayed();
+    }
+
+    public boolean isTitleTextareaIsFreeform() {
+        String sampleTitle = "Sample Title for testing.1@";
+        find(By.xpath("//input[@placeholder='Goal title']")).sendKeys(sampleTitle);
+        return sampleTitle.equals(find(By.xpath("//input[@placeholder='Goal title']")).getTextValue().trim());
+    }
+
+    public boolean isDescriptionTextareaFreeform() {
+        String sampleTitle = "Sample Description for testing.1@";
+        find(By.xpath("//textarea[contains(@placeholder,'Describe')]")).sendKeys(sampleTitle);
+        return sampleTitle.equals(find(By.xpath("//textarea[contains(@placeholder,'Describe')]")).getValue().trim());
+    }
+
+    public boolean checkDueDate(String format) {
+        return format.equals(find(By.className("calendar-display")).getText());
+    }
+
+    public boolean isKeyResultTextboxDisplayed() {
+        return find(By.xpath("//textarea[@placeholder='Add key indicators for this goal']")).isDisplayed();
+    }
+
+    public boolean iskeyResultBtnDisplayed() {
+        return find(By.xpath("//button[contains(text(),'Add/Save')]")).isDisplayed();
+    }
+
+    public boolean isPageInGoalsPage() {
+        return "https://app1-test.taskus.com/goals".equals(getDriver().getCurrentUrl());
+    }
+
+    public void waitforPageToRedirectTo(String URL){
+        withTimeoutOf(1, MINUTES).waitFor(ExpectedConditions.urlContains(URL));
+    }
+
+    public void verifyListOfDirectReportAreDisplayed() {
+        ArrayList<String> namesInCSV = CredentialsCSVReader.readAndLoadCSVDirectReportData();
+        withTimeoutOf(1, MINUTES).waitFor(ExpectedConditions.invisibilityOf(find(By.xpath("//div[contains(text(),'Fetching your direct reports...')]"))));
+        List<WebElement> listOfNames = getDriver().findElements(By.xpath("//div[contains(text(),'Direct Reports')]/following-sibling::div[@class='names']//descendant::div[@class='name']"));
+        for(WebElement element :listOfNames){
+            Assert.assertTrue("Checking direct report names",namesInCSV.contains(element.getText().trim()));
+        }
     }
 }

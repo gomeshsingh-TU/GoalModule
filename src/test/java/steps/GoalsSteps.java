@@ -2,11 +2,21 @@ package steps;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
+import org.junit.Assert;
 import pageobjects.GoalsPage;
+import steps.GoalsUpdatedSteps.GoalsUpdatedSteps;
+
+import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class GoalsSteps {
+
     @Steps
     GoalsPage goalsPage;
+
+    @Steps
+    GoalsUpdatedSteps goalsUpdatedSteps;
 
     @Step("Click on Initials")
     public void clickOnInitials() {
@@ -408,4 +418,51 @@ public class GoalsSteps {
         goalsPage.verifyGoalCannotBeEditedAfterEditableUntilDate();
     }
 
+    public void verifyNameOfTheGoalFormShouldBeYourName() {
+        goalsPage.verifyNameOfTheGoalFormShouldBeYourName();
+    }
+
+    @Step("verifyCycleNameShouldBeTheOneSelected")
+    public void verifyCycleNameShouldBeTheOneSelected() {
+        goalsPage.verifyCycleNameShouldBeTheOneSelected();
+    }
+
+    public void verifyDateCoverageShouldBeTheStartAndEndOfCycle() {
+        String cycleName = goalsPage.getCycleName();
+        GoalsUpdatedSteps.Quarter quarter = GoalsUpdatedSteps.Quarter.First_Quarter;
+        if("First Quarter".equalsIgnoreCase(cycleName)){
+            quarter = GoalsUpdatedSteps.Quarter.First_Quarter;
+        }
+
+        SimpleDateFormat dtFormatDate = new SimpleDateFormat("MM/dd/YYYY");
+        Calendar startDateClndr = goalsUpdatedSteps.getDateToCurrentQuarter(quarter,true);
+        Calendar endDateClndr = goalsUpdatedSteps.getDateToCurrentQuarter(quarter,false);
+        String cycleStartAndEnd = dtFormatDate.format(startDateClndr.getTime()) + "-"
+                + dtFormatDate.format(endDateClndr.getTime());
+       Assert.assertTrue("Checking cycle start and end date",goalsPage.verifyDateCoverageShouldBeTheStartAndEndOfCycle(cycleStartAndEnd));
+       Assert.assertTrue("Checking Due date",goalsPage.checkDueDate(dtFormatDate.format(endDateClndr.getTime())));
+    }
+
+    public void verifyTitleAndDescriptionIsFreeForm() {
+        Assert.assertTrue("Verify if title textarea is freeform",goalsPage.isTitleTextareaIsFreeform());
+        Assert.assertTrue("Verify if description textarea is freeform",goalsPage.isDescriptionTextareaFreeform());
+    }
+
+    public void verifyKeyresultTextboxAndButtonIsDisplayed() {
+        Assert.assertTrue("Verify key result textbox is displayed",goalsPage.isKeyResultTextboxDisplayed());
+        Assert.assertTrue("Verify key result button",goalsPage.iskeyResultBtnDisplayed());
+    }
+
+    public void verifyThatPageIsNotRedirectedToGoalsPage() {
+        Assert.assertFalse("Verify that the page is not redirected to goal page",goalsPage.isPageInGoalsPage());
+    }
+
+    public void verifyThatPageIsRedirectedToGoalsPage() {
+        goalsPage.waitforPageToRedirectTo("https://app1-test.taskus.com/goals");
+        Assert.assertTrue("Verify that the page is not redirected to goal page",goalsPage.isPageInGoalsPage());
+    }
+
+    public void verifyListOfDirectReportAreDisplayed() {
+        goalsPage.verifyListOfDirectReportAreDisplayed();
+    }
 }

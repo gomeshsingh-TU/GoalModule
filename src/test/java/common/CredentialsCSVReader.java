@@ -6,6 +6,7 @@ import testdataobjects.EmployeeProfile;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CredentialsCSVReader {
@@ -45,44 +46,32 @@ public class CredentialsCSVReader {
 
     }
 
-    /*public static <c> HashMap<String, Object> readCSV(String fileName, Class<?> c){
-        HashMap<String, Object> ret = new  HashMap<String, Object>();
-        BufferedReader br = null;
+    public static ArrayList<String> readAndLoadCSVDirectReportData(){
 
-       try(
-               Reader reader = Files.newBufferedReader(Paths.get(fileName));
-        ) {
-           CsvToBean<c> csvToBean = new CsvToBeanBuilder(reader)
-                   .withType(c)
-                   .withIgnoreLeadingWhiteSpace(true)
-                   .build();
+        String csvFile = "src/test/resources/data/directReport.csv";
+        String line = "";
+        String cvsSplitBy = ",";
+        ArrayList<String> returnList = new ArrayList<>();
 
-           Iterator<c> csvUserIterator = ((CsvToBean) csvToBean).iterator();
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
-           while (((Iterator) csvUserIterator).hasNext()) {
-               CSVUser csvUser = csvUserIterator.next();
-               System.out.println("Name : " + csvUser.getName());
-               System.out.println("Email : " + csvUser.getEmail());
-               System.out.println("PhoneNo : " + csvUser.getPhoneNo());
-               System.out.println("Country : " + csvUser.getCountry());
-               System.out.println("==========================");
-           }
-       }catch (Exception e) {
-            System.out.println(e);
-        }finally {
-           if(br!=null){
-               try {
-                   br.close();
-               } catch (IOException e) {
-                   System.out.println(e.getMessage());
-               }
-           }
+            while ((line = br.readLine()) != null) {
 
+                String[] record = line.split(cvsSplitBy);
+                for(String rec :record){
+                    returnList.add(rec);
+                }
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return ret;
-    }*/
 
+        System.out.println("End reading csv file: " + returnList.size());
 
+        return returnList;
 
+    }
 
 }

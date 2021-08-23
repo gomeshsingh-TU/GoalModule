@@ -343,7 +343,6 @@ public class DBHelper {
         String Coach = "DELETE [dbo].[Comment] \n" +
                 "DELETE [dbo].[GoalItem] \n" +
                 "DELETE [dbo].[Participant] \n" +
-                "DELETE [dbo].[GoalStatus] \n" +
                 "DELETE [dbo].[Goal] \n" +
                 "DELETE [dbo].[Cycle]";
         try {
