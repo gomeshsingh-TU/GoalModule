@@ -9,26 +9,29 @@ Scenario: To verify that direct report can view the goals he created
   Then Click on Goals and select a Cycle
   And Verify the List of Goals created for himself
 
-#@QA_BCT_GS-VG_02
-#Scenario: To verify that Immediate Supervisor can view the goal that his Direct Report created for himself
-#  Given Boost Login page
-#  When A Team Leader user logs in
-#  Then Click on Goals and select a Cycle
-#  And Verify IS can view the Goals created by Direct reports for himself
-#
-#@QA_BCT_GS-VG_03
-#Scenario: To verify that Immediate Supervisor can view the goal that he created for his Direct Report
-#  Given Boost Login page
-#  When A Team Leader user logs in
-#  Then Click on Goals and select a Cycle
-#  And Verify IS can view the goal that he created for his Direct Report
-#
-#@QA_BCT_GS-VG_04
-#Scenario: To verify that Direct Report can view the goal that his Immediate Supervisor created for him
-#  Given Boost Login page
-#  When A Team mate user logs in
-#  Then Click on Goals and select a Cycle
-#  And Verify Direct Report can view the goal that his IS created for him
+@QA_BCT_GS-VG_02
+Scenario: To verify that Immediate Supervisor can view the goal that his Direct Report created for himself
+  Given Create prereq data for "QA_BCT_GS-VG_01"
+  Given Boost Login page
+  When A Supervisor logs in
+  Then Click on Goals and select a Cycle
+  And Verify IS can view the Goals created by Direct reports for himself
+
+@QA_BCT_GS-VG_03
+Scenario: To verify that Immediate Supervisor can view the goal that he created for his Direct Report
+  Given Create prereq data for "QA_BCT_GS-VG_03"
+  Given Boost Login page
+  When A Supervisor logs in
+  Then Click on Goals and select a Cycle
+  And Verify IS can view the goal that he created for his Direct Report
+
+@QA_BCT_GS-VG_04
+Scenario: To verify that Direct Report can view the goal that his Immediate Supervisor created for him
+  Given Create prereq data for "QA_BCT_GS-VG_03"
+  Given Boost Login page
+  When A Team mate user logs in
+  Then Click on Goals and select a Cycle
+  And Verify Direct Report can view the goal that his IS created for him
 #
 #@QA_BCT_GS-VG_05
 #Scenario: To verify that Employee can view the goal that he created for an indirect report

@@ -22,7 +22,7 @@ public class LoginStepDefinations {
 
     @When("A Team mate user logs in")
     public void aTeamMateUserLogsIn() throws InterruptedException {
-        omuser = loginSteps.UserLogsIn("TM");
+        omuser = loginSteps.UserLogsIn("DirectReport");
     }
 
     @When("A Team Leader user logs in")
