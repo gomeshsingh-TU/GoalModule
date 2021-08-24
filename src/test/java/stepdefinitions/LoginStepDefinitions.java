@@ -8,7 +8,7 @@ import testdataobjects.EmployeeProfile;
 
 import java.util.HashMap;
 
-public class LoginStepDefinations {
+public class LoginStepDefinitions {
 
     @Steps
     LoginSteps loginSteps;
@@ -24,6 +24,7 @@ public class LoginStepDefinations {
     public void aTeamMateUserLogsIn() throws InterruptedException {
         omuser = loginSteps.UserLogsIn("DirectReport");
     }
+
 
     @When("A Team Leader user logs in")
     public void aTeamLeaderUserLogsIn() throws InterruptedException {
@@ -44,5 +45,10 @@ public class LoginStepDefinations {
     @When("A Supervisor logs in")
     public void aSupervisorLogsIn() {
         omuser = loginSteps.UserLogsIn("Supervisor");
+    }
+
+    @When("A Indirect user logs in")
+    public void aIndirectUserLogsIn() {
+        omuser = loginSteps.UserLogsIn("3rdParty");
     }
 }

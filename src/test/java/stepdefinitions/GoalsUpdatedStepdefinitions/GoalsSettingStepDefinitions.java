@@ -90,6 +90,10 @@ public class GoalsSettingStepDefinitions {
             module1tc2();
             module3tc3();
         }
+        if("QA_BCT_GS-VG_05".equalsIgnoreCase(testCaseNumber)){
+            module1tc2();
+            module3tc5();
+        }
     }
 
     @And("Input data in cycle for the first quarter")
@@ -142,6 +146,22 @@ public class GoalsSettingStepDefinitions {
         clickOnCreateGoalSaveButton();
         verifyThatPageIsRedirectedToGoalsPage();
         verifyCreateGoalIsSavedForDirectReport();
+        loginSteps.logout();
+    }
+
+    private void module3tc5() throws InterruptedException {
+        loginSteps.openBoostLoginPage();
+        loginSteps.UserLogsIn("DirectReport");
+        clickOnGoalsAndSelectACycle();
+        clickOnCreateGoal();
+        enterAnyEmployeeNameOrNumberInOthersField();
+        clickOnTheEmployeeName();
+        inputDataInTitleFieldForIndirectReport();
+        inputDataInDescriptionField();
+        addAKeyResult();
+        clickOnCreateGoalSaveButton();
+        verifyThatPageIsRedirectedToGoalsPage();
+        verifyCreateGoalIsSavedForIndirectReport();
         loginSteps.logout();
     }
 

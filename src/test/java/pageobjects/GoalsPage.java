@@ -117,7 +117,7 @@ public class GoalsPage extends PageObject {
     @FindBy(xpath = "//*[@id=\"participants\"]/div[2]/div[2]/div")
     private WebElementFacade selectYourNameOption;
 
-    @FindBy(xpath = "//div[contains(text(),'Ashish Agrawal')]")
+    @FindBy(xpath = "//div[contains(text(),'Aldrin Sy')]")
     private WebElementFacade selectDirectReportNameOption;
 
     @FindBy(xpath = "//*[@id=\"participants\"]/div[4]/div[2]/input")
