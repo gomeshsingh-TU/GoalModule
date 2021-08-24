@@ -17,7 +17,7 @@ And Input data in cycle for the first quarter
 And Click on Add button for Cycle
 And Verify Cycle Name is Added in the list
 
-@QA_BCT_GS-CG_02
+@QA_BCT_GS-MGS_02
 Scenario: To verify that user cannot create a goal if one or more required fields is/are not yet populated
 Given Create prereq data for "QA_BCT_GS-CG_02"
 Given Boost Login page

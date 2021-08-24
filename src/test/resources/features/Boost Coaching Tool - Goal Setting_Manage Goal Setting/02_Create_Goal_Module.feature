@@ -3,6 +3,7 @@ Feature: Create Goal
 
 @QA_BCT_GS-CG_01
 Scenario: To verify the Create Goal form contents
+Given Create prereq data for "QA_BCT_GS-CG_02"
 Given Boost Login page
 When A Supervisor logs in
 Then Click on Goals and select a Cycle

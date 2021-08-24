@@ -78,9 +78,13 @@ public class GoalsSettingStepDefinitions {
     }
 
     @Given("Create prereq data for {string}")
-    public void createPrereqDataFor(String testCaseNumber) {
+    public void createPrereqDataFor(String testCaseNumber) throws InterruptedException {
         if("QA_BCT_GS-CG_02".equalsIgnoreCase(testCaseNumber)){
             module1tc2();
+        }
+        if("QA_BCT_GS-VG_01".equalsIgnoreCase(testCaseNumber)){
+            module1tc2();
+            module3tc1();
         }
     }
 
@@ -104,6 +108,21 @@ public class GoalsSettingStepDefinitions {
         inputDataInCycleForTheFirstQuarter();
         goalsSteps.clickOnAddCycleButton();
         verifyCycleNameIsAddedInTheList();
+        loginSteps.logout();
+    }
+
+    public void module3tc1() throws InterruptedException {
+        loginSteps.openBoostLoginPage();
+        loginSteps.UserLogsIn("DirectReport");
+        clickOnGoalsAndSelectACycle();
+        clickOnCreateGoal();
+        clickOnYourName();
+        inputDataInTitleFieldForHimself();
+        inputDataInDescriptionField();
+        addAKeyResult();
+        clickOnCreateGoalSaveButton();
+        verifyThatPageIsRedirectedToGoalsPage();
+        verifyTheListOfGoalsCreatedForHimself();
         loginSteps.logout();
     }
 
