@@ -629,8 +629,6 @@ public class GoalsPage extends PageObject {
         Assert.assertTrue("Check Page Edit button", editGoalsPageEditButton.isPresent());
         Assert.assertTrue("Check Status List", editGoalsPageStatusList.isDisplayed());
         Assert.assertTrue("Check Cycle Name", editGoalsPageCycleName.isDisplayed());
-        Assert.assertTrue("Check Editable Until Field", editGoalsPageEditableUntilField.isDisplayed());
-        Assert.assertTrue("Check Status Updatable Until", editGoalsPageStatusUpdatableUntil.isDisplayed());
         Assert.assertTrue("Check Back button", editGoalsPageBackButton.isDisplayed());
 
     }
