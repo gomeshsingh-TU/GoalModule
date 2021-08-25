@@ -3,7 +3,7 @@ Feature: Edit Goal
 
 @QA_BCT_GS-EG_01
 Scenario: To verify the goal details
-  Given Create prereq data for "QA_BCT_GS-VG_01"
+  Given Create prereq data for "QA_BCT_GS-VG_03"
   Given Boost Login page
   When A Supervisor logs in
   Then Click on Goals and select a Cycle
@@ -12,7 +12,7 @@ Scenario: To verify the goal details
 
 @QA_BCT_GS-EG_02
 Scenario: To verify the status available for the goal
-  Given Create prereq data for "QA_BCT_GS-VG_01"
+  Given Create prereq data for "QA_BCT_GS-VG_03"
   Given Boost Login page
   When A Supervisor logs in
   Then Click on Goals and select a Cycle
@@ -71,17 +71,18 @@ Scenario: To verify that Indirect Report has no capability to edit or change the
 
 @QA_BCT_GS-EG_08
 Scenario: To verify that status of the goal can be changed via goal details on or before the Status Updatable date
-  Given Create prereq data for "QA_BCT_GS-VG_01"
+  Given Create prereq data for "QA_BCT_GS-VG_03"
   Given Boost Login page
   When A Supervisor logs in
   Then Click on Goals and select a Cycle
   And Select Previous Cycle "First Quarter"
   And Click on Previous Goal and change status to Completed
+  Then Click on Goals and select a Cycle
   And Verify the status of the goal can be changed by employee before Status Updatable date
 
 @QA_BCT_GS-EG_09
 Scenario: To verify that status of the goal can be changed via goal list on or before the Status Updatable date
-  Given Create prereq data for "QA_BCT_GS-VG_01"
+  Given Create prereq data for "QA_BCT_GS-VG_03"
   Given Boost Login page
   When A Supervisor logs in
   Then Click on Goals and select a Cycle
@@ -107,14 +108,14 @@ Scenario: To verify that status of the goal can be changed via goal list on or b
 #
 #@QA_BCT_GS-EG_12
 #Scenario: To verify that the goal can be edited on or before the Editable Until date
+#  Given Create prereq data for "QA_BCT_GS-VG_03"
 #  Given Boost Login page
 #  When A Supervisor logs in
 #  And Click on Goals and select a Cycle
-#  And Select Previous Cycle "Previous Cycle"
-#  And Click on Previous Goal
+#  And Click on any Goal
 #  And Click on Edit button, Update the necessary field and click on Save
-#  And Select Previous Cycle "Previous Cycle"
-#  And Click on Previous Goal
+#  And Click on Goals and select a Cycle
+#  And Click on any Goal
 #  And Verify that the goal is updated on or before the Editable Until date
 #
 #@QA_BCT_GS-EG_13
@@ -127,7 +128,7 @@ Scenario: To verify that status of the goal can be changed via goal list on or b
 #
 @QA_BCT_GS-EG_14
 Scenario: To verify that user can add comment on the goal
-  Given Create prereq data for "QA_BCT_GS-VG_01"
+  Given Create prereq data for "QA_BCT_GS-VG_03"
   Given Boost Login page
   When A Supervisor logs in
   And Click on Goals and select a Cycle

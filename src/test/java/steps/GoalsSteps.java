@@ -3,6 +3,7 @@ package steps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import pageobjects.GoalsPage;
 import steps.GoalsUpdatedSteps.GoalsUpdatedSteps;
 
@@ -470,8 +471,16 @@ public class GoalsSteps {
         goalsPage.clickOnGoalStatus();
     }
 
+    public void clickOnGoalStatusInGoalPage(){
+        goalsPage.clickOnGoalStatusInGoalPage();
+    }
+
     public void clickOnStatusDropDown(String status) {
         goalsPage.clickOnStatusDropDown(status);
+    }
+
+    public void clickOnStatusDropDownInGoalPage(String status){
+        goalsPage.clickOnStatusDropDownInGoalPage(status);
     }
 
     public void validateThatCompletedGoalInFirstQuaterIsVisible() {
@@ -488,5 +497,10 @@ public class GoalsSteps {
 
     public void verifyThatOpenGoalForSecondQuarterIsVisibleInSecondQuarter() {
         Assert.assertTrue("Check if goal that is open in second quater is visible in second quarter",goalsPage.verifyThatGoalForSecondQuarterIsNotVisibleInFirstQuarter());
+    }
+
+    public void verifyGoalStatusIsCompleted() {
+        goalsPage.waitUntilStatusChangedTo("Completed");
+        Assert.assertEquals("Check if goal status is changed to completed","● Completed",goalsPage.getGoalStatus());
     }
 }

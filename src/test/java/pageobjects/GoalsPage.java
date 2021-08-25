@@ -248,7 +248,7 @@ public class GoalsPage extends PageObject {
     @FindBy(xpath = "//span[contains(text(),'Direct Report Goal')]")
     private WebElementFacade editGoalsISGoalForTM;
 
-    @FindBy(xpath = "//*[@id=\"primary-content\"]/div[2]/div[4]/div[1]/div")
+    @FindBy(className = "status")
     private WebElementFacade editGoalsPageStatusButtonForIS;
 
     @FindBy(xpath = "//*[@id=\"primary-content\"]/div[1]/div[2]/div[1]/div[2]")
@@ -260,7 +260,7 @@ public class GoalsPage extends PageObject {
     @FindBy(xpath = "//*[@id=\"primary-content\"]/div[2]/div[1]/div[1]/div")
     private WebElementFacade editGoalsPageStatusButtonForAdmin;
 
-    @FindBy(xpath = "//*[@id=\"primary-content\"]/div[2]/div[5]/div[1]/div")
+    @FindBy(xpath = "//div[@class='status']")
     private WebElementFacade editGoalsPageStatusButtonForIR;
 
     @FindBy(xpath = "//*[@id=\"primary-content\"]/div[1]/div[1]/div[5]/div/textarea")
@@ -269,7 +269,7 @@ public class GoalsPage extends PageObject {
     @FindBy(xpath = "//*[@id=\"primary-content\"]/div[1]/div[1]/div[5]/div/div[2]/button")
     private WebElementFacade editGoalsPageAddCommentButton;
 
-    @FindBy(xpath = "//*[@id=\"primary-content\"]/div[1]/div[1]/div[5]/div[2]/div[2]")
+    @FindBy(xpath = "//div[@class='comment-text']")
     private WebElementFacade editGoalsPageVerifyAddedCommentText;
 
     @FindBy(xpath = "//*[@id=\"primary-content\"]/div[2]/div[1]/div[1]/div")
@@ -666,6 +666,7 @@ public class GoalsPage extends PageObject {
 
     public void clickOnGoalCreatedByISForDirectReport() {
         if (editGoalsISGoalForTM.isDisplayed()) {
+            withTimeoutOf(1,MINUTES).waitFor(ExpectedConditions.visibilityOf(editGoalsPageStatusButtonForIS));
             goalPageStatusValue = editGoalsPageStatusButtonForIS.getText();
             Assert.assertTrue("Check Status button", editGoalsPageStatusButton.isDisplayed());
         }
@@ -721,6 +722,8 @@ public class GoalsPage extends PageObject {
     public void statusShouldNotClickableByIR() {
         if (editGoalsAdminGoalForIndirectReport.isDisplayed()) {
             Assert.assertTrue("Check Status button for IR", editGoalsPageStatusButtonForIR.isDisplayed());
+            Assert.assertFalse("Status choices is not visible", find(By.className("status-el")).isVisible());
+
         }
     }
 
@@ -873,9 +876,18 @@ public class GoalsPage extends PageObject {
         find(By.className("status")).click();
     }
 
+    public void clickOnGoalStatusInGoalPage() {
+        find(By.className("status-indicator")).click();
+    }
+
     public void clickOnStatusDropDown(String status) {
         withTimeoutOf(1, MINUTES).waitFor(ExpectedConditions.visibilityOf(find(By.xpath("//div[@class='status-el'][text()=' "+status+" ']"))));
         find(By.xpath("//div[@class='status-el'][text()=' "+status+" ']")).click();
+    }
+
+    public void clickOnStatusDropDownInGoalPage(String status) {
+        withTimeoutOf(1, MINUTES).waitFor(ExpectedConditions.visibilityOf(find(By.xpath("//div[@class='status'][text()=' "+status+" ']"))));
+        find(By.xpath("//div[@class='status'][text()=' "+status+" ']")).click();
     }
 
     public boolean validateThatCompletedGoalInFirstQuaterIsVisible() {
@@ -894,5 +906,13 @@ public class GoalsPage extends PageObject {
         waitForAngularRequestsToFinish();
         WebElementFacade element = find(By.xpath("//span[contains(text(),'Direct Report Goal')]//following::div[@class='status'][text()=' Open ']"));
         return element.isVisible();
+    }
+
+    public String getGoalStatus() {
+        return find(By.className("status")).getText();
+    }
+
+    public void waitUntilStatusChangedTo(String status){
+        withTimeoutOf(1,MINUTES).waitFor(ExpectedConditions.textToBe(By.className("status"),"● "+status));
     }
 }

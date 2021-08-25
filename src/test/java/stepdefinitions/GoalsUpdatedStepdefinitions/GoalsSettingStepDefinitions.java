@@ -479,7 +479,10 @@ public class GoalsSettingStepDefinitions {
 
     @Then("Click on Previous Goal and change status to Completed")
     public void clickOnPreviousGoalAndChangeStatusToCompleted() throws InterruptedException {
-        goalsSteps.clickOnPreviousGoalAndChangeToCompleted();
+//        goalsSteps.clickOnPreviousGoalAndChangeToCompleted();
+        goalsSteps.clickOnFirstGoal();
+        goalsSteps.clickOnGoalStatusInGoalPage();
+        goalsSteps.clickOnStatusDropDownInGoalPage("Completed");
     }
 
     @Then("Select Current Cycle {string}")
@@ -609,8 +612,8 @@ public class GoalsSettingStepDefinitions {
 
     @Then("Verify the status of the goal can be changed by employee before Status Updatable date")
     public void verifyTheStatusOfTheGoalCanBeChangedByEmployeeBeforeStatusUpdatableDate() {
-        goalsSteps.verifyStatusOfTheGoalCanBeChangedBeforeStatusUpdatableDate();
-
+//        goalsSteps.verifyStatusOfTheGoalCanBeChangedBeforeStatusUpdatableDate();
+        goalsSteps.verifyGoalStatusIsCompleted();
     }
 
     @Then("Change the status for Previous Goal to Open")
