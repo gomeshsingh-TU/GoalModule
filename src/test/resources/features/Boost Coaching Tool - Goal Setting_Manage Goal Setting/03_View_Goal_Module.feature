@@ -73,10 +73,10 @@ Scenario: To verify that goals with due date covered in the current cycle that i
 Scenario: To verify that goals with due date covered in the current cycle that is not marked Completed will be listed in the current cycle (goal was created on the previous cycle)
   Given Create prereq data for "QA_BCT_GS-VG_09"
   Given Boost Login page
-  When An Admin user logs in
+  When A Supervisor logs in
   Then Click on Goals and select a Cycle
   And Select Previous Cycle "First Quarter"
   And Verify that goal for second quarter is not visible in first quarter
   And Click on Goals and select a Cycle
-  And Select Current Cycle "Second Quater"
+  And Select Current Cycle "Second Quarter"
   And Verify that open goal for second quarter is visible in second quarter
