@@ -94,6 +94,42 @@ public class GoalsSettingStepDefinitions {
             module1tc2();
             module3tc5();
         }
+        if("QA_BCT_GS-VG_08".equalsIgnoreCase(testCaseNumber)){
+            module3tc8CreateCycle();
+            module3tc8CreateGoalAndChangeStatustoComplete();
+        }
+        if("QA_BCT_GS-VG_09".equalsIgnoreCase(testCaseNumber)){
+            module3tc8CreateCycle();
+            module3tc9CreateGoalforSecondQuarter();
+        }
+    }
+
+    private void module3tc9CreateGoalforSecondQuarter() throws InterruptedException {
+        loginSteps.openBoostLoginPage();
+        loginSteps.UserLogsIn("Supervisor");
+        goalsSteps.clickOnGoalsAndSelectAOldCycleByEmployee("Second Quarter");
+        clickOnCreateGoal();
+        clickOnOneOfTheDirectReport();
+        inputDataInTitleFieldForDirectReport();
+        inputDataInDescriptionField();
+        addAKeyResult();
+        clickOnCreateGoalSaveButton();
+        loginSteps.logout();
+    }
+
+    private void module3tc8CreateGoalAndChangeStatustoComplete() throws InterruptedException {
+        loginSteps.openBoostLoginPage();
+        loginSteps.UserLogsIn("Supervisor");
+        goalsSteps.clickOnGoalsAndSelectAOldCycleByEmployee("First Quarter");
+        clickOnCreateGoal();
+        clickOnOneOfTheDirectReport();
+        inputDataInTitleFieldForDirectReport();
+        inputDataInDescriptionField();
+        addAKeyResult();
+        clickOnCreateGoalSaveButton();
+        goalsSteps.clickOnGoalStatus();
+        goalsSteps.clickOnStatusDropDown("Completed");
+        loginSteps.logout();
     }
 
     @And("Input data in cycle for the first quarter")
@@ -163,6 +199,30 @@ public class GoalsSettingStepDefinitions {
         verifyThatPageIsRedirectedToGoalsPage();
         verifyCreateGoalIsSavedForIndirectReport();
         loginSteps.logout();
+    }
+
+    private void module3tc8CreateCycle() throws InterruptedException {
+        clearWellnessDatabase();
+        loginSteps.openBoostLoginPage();
+        loginSteps.UserLogsIn("Supervisor");
+        goalsSteps.clickOnInitials();
+        goalsSteps.clickOnManageGoalsOption();
+        goalsSteps.clickOnAddCycleOption();
+        inputDataInCycleForTheFirstQuarter();
+        goalsSteps.clickOnAddCycleButton();
+        goalsSteps.clickOnAddCycleOption();
+        inputDataInCycleForTheSecondQuarter();
+        goalsSteps.clickOnAddCycleButton();
+        loginSteps.logout();
+    }
+
+    private void inputDataInCycleForTheSecondQuarter() {
+        goalsUpdatedSteps.setQuarterNameAs("Second Quarter");
+        goalsUpdatedSteps.selectADateOnStartDateAndEndDateField(GoalsUpdatedSteps.Quarter.Second_Quarter,true);
+        goalsUpdatedSteps.selectADateOnStartDateAndEndDateField(GoalsUpdatedSteps.Quarter.Second_Quarter,false);
+        goalsUpdatedSteps.setDateOnStatusChangeCutoff(GoalsUpdatedSteps.Quarter.Second_Quarter);
+        goalsUpdatedSteps.setFirstQuarterEditCutoffDate(GoalsUpdatedSteps.Quarter.Second_Quarter);
+        selectOnIsListedField("Yes");
     }
 
     @Then("Verify name of the goal form should be your name")
@@ -623,5 +683,25 @@ public class GoalsSettingStepDefinitions {
     @Then("Verify list of Direct report are displayed")
     public void verifyListOfDirectReportAreDisplayed() {
         goalsSteps.verifyListOfDirectReportAreDisplayed();
+    }
+
+    @And("Validate that completed goal in first quarter is visible")
+    public void validateThatCompletedGoalInFirstQuaterIsVisible() {
+        goalsSteps.validateThatCompletedGoalInFirstQuaterIsVisible();
+    }
+
+    @And("Validate that goal on first quarter is not visible in second quarter")
+    public void validateThatGoalOnFirstQuarterIsNotVisibleInSecondQuater() {
+        goalsSteps.validateThatGoalOnFirstQuarterIsNotVisibleInSecondQuater();
+    }
+
+    @And("Verify that goal for second quarter is not visible in first quarter")
+    public void verifyThatGoalForSecondQuarterIsNotVisibleInFirstQuarter() {
+        goalsSteps.verifyThatGoalForSecondQuarterIsNotVisibleInFirstQuarter();
+    }
+
+    @And("Verify that open goal for second quarter is visible in second quarter")
+    public void verifyThatOpenGoalForSecondQuarterIsVisibleInSecondQuarter() {
+        goalsSteps.verifyThatOpenGoalForSecondQuarterIsVisibleInSecondQuarter();
     }
 }

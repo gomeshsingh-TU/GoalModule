@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 
@@ -534,7 +535,7 @@ public class GoalsPage extends PageObject {
     }
 
     public void searchAnyEmployeeNameInOthersField() throws InterruptedException {
-        searchEmployeeNameInputBox.sendKeys("Ashish Agrawal");
+        searchEmployeeNameInputBox.sendKeys("Jenie Areno");
         Thread.sleep(2000);
     }
 
@@ -868,5 +869,32 @@ public class GoalsPage extends PageObject {
         for(WebElement element :listOfNames){
             Assert.assertTrue("Checking direct report names",namesInCSV.contains(element.getText().trim()));
         }
+    }
+
+    public void clickOnGoalStatus() {
+        find(By.className("status")).click();
+    }
+
+    public void clickOnStatusDropDown(String status) {
+        withTimeoutOf(1, MINUTES).waitFor(ExpectedConditions.visibilityOf(find(By.xpath("//div[@class='status-el'][text()=' "+status+" ']"))));
+        find(By.xpath("//div[@class='status-el'][text()=' "+status+" ']")).click();
+    }
+
+    public boolean validateThatCompletedGoalInFirstQuaterIsVisible() {
+        WebElement element = find(By.xpath("//span[contains(text(),'Direct Report Goal')]//following::div[@class='status'][text()=' Completed ']"));
+        withTimeoutOf(1, MINUTES).waitFor(ExpectedConditions.visibilityOf(element));
+        return element.isDisplayed();
+    }
+
+    public boolean validateThatGoalOnFirstQuarterIsNotVisibleInSecondQuater() {
+        waitForAngularRequestsToFinish();
+        WebElementFacade element = find(By.xpath("//span[contains(text(),'Direct Report Goal')]//following::div[@class='status'][text()=' Completed ']"));
+        return element.isVisible();
+    }
+
+    public boolean verifyThatGoalForSecondQuarterIsNotVisibleInFirstQuarter() {
+        waitForAngularRequestsToFinish();
+        WebElementFacade element = find(By.xpath("//span[contains(text(),'Direct Report Goal')]//following::div[@class='status'][text()=' Open ']"));
+        return element.isVisible();
     }
 }

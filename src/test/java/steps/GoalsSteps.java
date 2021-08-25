@@ -465,4 +465,28 @@ public class GoalsSteps {
     public void verifyListOfDirectReportAreDisplayed() {
         goalsPage.verifyListOfDirectReportAreDisplayed();
     }
+
+    public void clickOnGoalStatus() {
+        goalsPage.clickOnGoalStatus();
+    }
+
+    public void clickOnStatusDropDown(String status) {
+        goalsPage.clickOnStatusDropDown(status);
+    }
+
+    public void validateThatCompletedGoalInFirstQuaterIsVisible() {
+        Assert.assertTrue("Check if goal in first quarter that is completed is visible",goalsPage.validateThatCompletedGoalInFirstQuaterIsVisible());
+    }
+
+    public void validateThatGoalOnFirstQuarterIsNotVisibleInSecondQuater() {
+        Assert.assertFalse("Check if goal in first quarter that is completed is visible",goalsPage.validateThatGoalOnFirstQuarterIsNotVisibleInSecondQuater());
+    }
+
+    public void verifyThatGoalForSecondQuarterIsNotVisibleInFirstQuarter() {
+        Assert.assertFalse("Check if goal that is open in second quater is not visible in first quarter",goalsPage.verifyThatGoalForSecondQuarterIsNotVisibleInFirstQuarter());
+    }
+
+    public void verifyThatOpenGoalForSecondQuarterIsVisibleInSecondQuarter() {
+        Assert.assertTrue("Check if goal that is open in second quater is visible in second quarter",goalsPage.verifyThatGoalForSecondQuarterIsNotVisibleInFirstQuarter());
+    }
 }
