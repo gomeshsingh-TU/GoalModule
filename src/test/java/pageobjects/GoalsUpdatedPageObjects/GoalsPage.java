@@ -3,6 +3,7 @@ package pageobjects.GoalsUpdatedPageObjects;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.joda.time.Minutes;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,9 @@ import org.openqa.selenium.support.ui.Select;
 
 import javax.swing.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.MINUTES;
 
 public class GoalsPage extends PageObject {
 
@@ -816,12 +820,12 @@ public class GoalsPage extends PageObject {
     public void selectFromModalDate(String date) {
         WebElement element = find(By.xpath("//span[@aria-label='"+date+"']"));
         element.click();
-    }
+}
 
 
     public void clickOnModalHeader() {
-        waitForAngularRequestsToFinish();
         WebElement element = find(By.xpath("//div[@class='vc-title-wrapper']"));
+        withTimeoutOf(1, MINUTES).waitFor(ExpectedConditions.visibilityOf(element));
         element.click();
     }
 

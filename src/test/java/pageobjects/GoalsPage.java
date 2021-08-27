@@ -301,6 +301,8 @@ public class GoalsPage extends PageObject {
 
 
     public void clickInitialsIconUpperRight() {
+        withTimeoutOf(1,MINUTES).waitFor(ExpectedConditions.visibilityOf(initialsIconUpperRight));
+
         initialsIconUpperRight.click();
     }
 
@@ -426,7 +428,7 @@ public class GoalsPage extends PageObject {
         clickOnGoalsOption.click();
 
         waitForCondition().until(ExpectedConditions.visibilityOf(manageGoalsCycleDropDown));
-        Thread.sleep(500);
+        Thread.sleep(1000);
         int index = (int) (1 + (Math.random() * (manageGoalsCycleDropDown.getSelectOptions().size() - 1)));
         cycleName = manageGoalsCycleDropDown.getSelectOptions().get(index).trim();
         manageGoalsCycleDropDown.selectByVisibleText(cycleName);
