@@ -2,7 +2,7 @@
 Feature: Manage Goal Setting
 
 @QA_BCT_GS-MGS_01
-Scenario: To verify that user cannot create a goal if one or more required fields is/are not yet populated
+Scenario: To verify that Admin can create cycle name
 Given Clear goal database
 Given Boost Login page
 When A Supervisor logs in
@@ -18,7 +18,7 @@ And Click on Add button for Cycle
 And Verify Cycle Name is Added in the list
 
 @QA_BCT_GS-MGS_02
-Scenario: To verify that user cannot create a goal if one or more required fields is/are not yet populated
+Scenario: To verify that Admin can update the cycle name
 Given Create prereq data for "QA_BCT_GS-CG_02"
 Given Boost Login page
 When A Supervisor logs in
